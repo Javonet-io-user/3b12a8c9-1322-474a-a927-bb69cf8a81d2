@@ -1,0 +1,115 @@
+package Renci.SshNet.Security;
+
+import Common.Activation;
+import static Common.Helper.Convert;
+import static Common.Helper.getGetObjectName;
+import static Common.Helper.getReturnObjectName;
+import static Common.Helper.ConvertToConcreteInterfaceImplementation;
+import Common.Helper;
+import com.javonet.Javonet;
+import com.javonet.JavonetException;
+import com.javonet.JavonetFramework;
+import com.javonet.api.NObject;
+import com.javonet.api.NEnum;
+import com.javonet.api.keywords.NRef;
+import com.javonet.api.keywords.NOut;
+import com.javonet.api.NControlContainer;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.Iterator;
+import java.lang.*;
+import Renci.SshNet.Security.*;
+import Renci.SshNet.Common.*;
+
+public abstract class Key {
+  protected NObject javonetHandle;
+  /** SetProperty */
+  public void setPublic(BigInteger[] value) {
+    try {
+      javonetHandle.set("Public", new Object[] {value});
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+    }
+  }
+  /** GetProperty */
+
+  public BigInteger[] getPublic(Class<?> returnArrayType) {
+    try {
+      Object[] res = javonetHandle.<NObject[]>get("Public");
+      if (res == null) return null;
+      return (BigInteger[]) Helper.ConvertNObjectToDestinationType((Object) res, returnArrayType);
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+      return null;
+    }
+  }
+  /** GetProperty */
+
+  public java.lang.Integer getKeyLength() {
+    try {
+      java.lang.Integer res = javonetHandle.get("KeyLength");
+      if (res == null) return 0;
+      return res;
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+      return 0;
+    }
+  }
+
+  public Key(java.lang.Byte[] data) {
+    try {
+      javonetHandle = Javonet.New("Renci.SshNet.Security.Key", new Object[] {data});
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+    }
+  }
+
+  public Key() {
+    try {
+      javonetHandle = Javonet.New("Renci.SshNet.Security.Key");
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+    }
+  }
+
+  public Key(NObject handle) {
+    this.javonetHandle = handle;
+  }
+
+  public void setJavonetHandle(NObject handle) {
+    this.javonetHandle = handle;
+  }
+  /** Method */
+
+  public java.lang.Byte[] Sign(java.lang.Byte[] data, Class<?> returnArrayType) {
+    try {
+      Object[] res = javonetHandle.invoke("Sign", new Object[] {data});
+      if (res == null) return null;
+      return (java.lang.Byte[])
+          Helper.ConvertNObjectToDestinationType((Object) res, returnArrayType);
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+      return null;
+    }
+  }
+  /** Method */
+
+  public java.lang.Boolean VerifySignature(java.lang.Byte[] data, java.lang.Byte[] signature) {
+    try {
+      java.lang.Boolean res =
+          javonetHandle.invoke("VerifySignature", new Object[] {data}, new Object[] {signature});
+      if (res == null) return false;
+      return res;
+    } catch (JavonetException _javonetException) {
+      _javonetException.printStackTrace();
+      return false;
+    }
+  }
+
+  static {
+    try {
+      Activation.initializeJavonet();
+    } catch (java.lang.Exception e) {
+      e.printStackTrace();
+    }
+  }
+}
